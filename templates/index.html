@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cafes</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        img { width: 120px; }
+    </style>
+</head>
+<body>
+    <h1>Best Cafes for Coffee + Wifi ☕💻</h1>
+    <a href="{{ url_for('add_cafe') }}">➕ Add New Cafe</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Seats</th>
+                <th>Wifi</th>
+                <th>Toilet</th>
+                <th>Sockets</th>
+                <th>Calls</th>
+                <th>Coffee Price</th>
+                <th>Image</th>
+                <th>Map</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cafe in cafes %}
+            <tr>
+                <td>{{ cafe.name }}</td>
+                <td>{{ cafe.location }}</td>
+                <td>{{ cafe.seats }}</td>
+                <td>{{ '✅' if cafe.has_wifi else '❌' }}</td>
+                <td>{{ '✅' if cafe.has_toilet else '❌' }}</td>
+                <td>{{ '✅' if cafe.has_sockets else '❌' }}</td>
+                <td>{{ '✅' if cafe.can_take_calls else '❌' }}</td>
+                <td>{{ cafe.coffee_price }}</td>
+                <td><img src="{{ cafe.img_url }}" alt="Cafe image"></td>
+                <td><a href="{{ cafe.map_url }}" target="_blank">Map</a></td>
+                <td><a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}">🗑️ Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
